@@ -4,6 +4,7 @@ import Button from "@mui/material/Button";
 import Alert from "@mui/material/Alert";
 import InputAdornment from "@mui/material/InputAdornment";
 import OutlinedInput from "@mui/material/OutlinedInput";
+import { Toaster, toast } from 'sonner'
 
 // Variables
 const anchoInput = "w-full md:w-[calc(10%-1rem)]";
@@ -28,20 +29,10 @@ const copyPassword = () => {
   let alert2 = document.getElementById("alert2");
 
   if (password.length < 6) {
-    alert.style.opacity = "0";
-    alert2.style.opacity = "1";
-
-    setTimeout(() => {
-      alert2.style.opacity = "0";
-    }, 2000);
+    toast.error('Elige una longitud mayor o igual a 6 caracteres')
   } else {
     navigator.clipboard.writeText(password);
-    alert2.style.opacity = "0";
-    alert.style.opacity = "1";
-
-    setTimeout(() => {
-      alert.style.opacity = "0";
-    }, 2000);
+    toast.success('Contraseña copiada con éxito!')
   }
 };
 
@@ -52,6 +43,7 @@ const copyIcon = () => {
 function App() {
   return (
     <div className="w-screen flex justify-center items-center gap-5">
+    <Toaster position="top-center" richColors />
       <div className="px-12 py-12 sm:px-20 max-w-5xl flex gap-5 flex-wrap justify-evenly">
         <h1
           className="text-3xl md:text-4xl font-bold w-full text-center mb-2"
@@ -104,38 +96,6 @@ function App() {
           className={anchoOutput}
           onClick={copyPassword}
         />
-        <Alert
-          id="alert"
-          style={{
-            position: "absolute",
-            top: "20px",
-            left: "50%",
-            transform: "translateX(-50%)",
-            opacity: "0",
-            transition: "all 0.150s ease",
-            width: "max-content",
-          }}
-          severity="success"
-          color="success"
-        >
-          Contraseña copiada con éxito!
-        </Alert>
-        <Alert
-          id="alert2"
-          style={{
-            position: "absolute",
-            top: "20px",
-            left: "50%",
-            transform: "translateX(-50%)",
-            opacity: "0",
-            transition: "all 0.150s ease",
-            width: "max-content",
-          }}
-          severity="error"
-          color="error"
-        >
-          Se recomienda una longitud de al menos 6 caracteres
-        </Alert>
         <p className="text-s w-full text-center mt-6">
           {" "}
           Hecho con la mejor 🤙 por{" "}
